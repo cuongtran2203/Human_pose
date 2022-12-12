@@ -14,9 +14,9 @@ def prob_viz(res, actions, input_frame, colors):
 sequence = []
 sentence = []
 predictions = []
-threshold = 0.5
+threshold = 0.7
 model_LSTM=Action_Recognizer()
-path_weights="./action.h5"
+path_weights="./model.h5"
 
 model_LSTM.model.load_weights(path_weights)
 cap = cv2.VideoCapture(0)
@@ -26,6 +26,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
 
         # Read feed
         ret, frame = cap.read()
+        frame=cv2.resize(frame,(1280,720))
         if ret and frame is not None:
             # Make detections
             image, results = mediapipe_detection(frame, holistic)
@@ -35,8 +36,8 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
             # 2. Prediction logic
             keypoints = extract_keypoints(results)
             sequence.append(keypoints)
-            sequence = sequence[-20:]
-            if len(sequence) == 20:
+            sequence = sequence[-30:]
+            if len(sequence) == 30:
                 res = model_LSTM.model.predict(np.expand_dims(sequence, axis=0))[0]
 
                 print(actions[np.argmax(res)])
