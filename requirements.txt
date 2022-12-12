@@ -10,3 +10,4 @@ pandas
 matplotlib
 scipy
 sklearn
+firebase_admin
