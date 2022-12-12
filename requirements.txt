@@ -11,3 +11,4 @@ matplotlib
 scipy
 sklearn
 firebase_admin
+tqdm

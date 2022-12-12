@@ -37,6 +37,5 @@ if __name__ == "__main__":
                     cv2.rectangle(frame, box,(0,244,24), 1)
         print("FPS : {}".format(1/(time.time()-t1)))
         cv2.imshow("sss",frame)
-
         if cv2.waitKey(1.5) & 0xff == ord('q') :
             break
