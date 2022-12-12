@@ -2,7 +2,7 @@ from scipy import stats
 import cv2 
 from preprocess import *
 from config import *
-from .model import *
+from model import *
 colors = [(245,117,16), (117,245,16), (16,117,245),(25,69,211)]
 def prob_viz(res, actions, input_frame, colors):
     output_frame = input_frame.copy()
@@ -16,7 +16,7 @@ sentence = []
 predictions = []
 threshold = 0.5
 model_LSTM=Action_Recognizer()
-path_weights="./model.h5"
+path_weights="./action.h5"
 
 model_LSTM.model.load_weights(path_weights)
 cap = cv2.VideoCapture(0)
