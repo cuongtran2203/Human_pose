@@ -1,3 +1,4 @@
+# Code for Raspberry Pi
 import cv2
 import time
 import firebase_admin
@@ -6,7 +7,7 @@ import numpy as np
 import threading
 from queue import Queue
 cam=cv2.VideoCapture("../video.mp4")
-cred_obj = firebase_admin.credentials.Certificate('/home/cuong/Documents/GitHub/Human_pose/projectt12-1fee4-firebase-adminsdk-dhgsc-57200ac9a1.json')
+cred_obj = firebase_admin.credentials.Certificate('./projectt12-1fee4-firebase-adminsdk-dhgsc-57200ac9a1.json')
 default_app = firebase_admin.initialize_app(cred_obj, {
 	'databaseURL':"https://projectt12-1fee4-default-rtdb.asia-southeast1.firebasedatabase.app"
 	})
