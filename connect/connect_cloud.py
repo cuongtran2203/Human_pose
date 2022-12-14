@@ -11,6 +11,8 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 	})
 ref_obj = db.reference("/Object Detection")
 ref_human=db.reference("/Human Action")
+ref_text=db.reference("/Text")
+ref_request=db.reference("/Request")
 def Thread_update(ref,dict_obj:dict):
     thread=threading.Thread(target=ref.set,args=(dict_obj))
     thread.start()

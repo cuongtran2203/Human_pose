@@ -42,7 +42,7 @@ class Classification() :
 
                     dict_data={"action":action}
                     #Send data to cloud 
-                    Thread_update(ref_human,dict_data)
+                    # Thread_update(ref_human,dict_data)
                     # print(actions[np.argmax(res)])
                     predictions.append(np.argmax(res))
                 #3. Viz logic
@@ -64,7 +64,7 @@ class Classification() :
                     cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
                     cv2.putText(image, ' '.join(sentence), (3,30), 
                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-                    return action
+                    return dict_data
 if __name__=="__main__":
     cam=cv2.VideoCapture(0)
     model=Classification()

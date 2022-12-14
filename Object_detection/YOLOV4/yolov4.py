@@ -4,12 +4,6 @@ import firebase_admin
 from firebase_admin import db
 import numpy as np
 import threading
-cred_obj = firebase_admin.credentials.Certificate('/home/cuong/Documents/GitHub/Human_pose/projectt12-1fee4-firebase-adminsdk-dhgsc-57200ac9a1.json')
-default_app = firebase_admin.initialize_app(cred_obj, {
-	'databaseURL':"https://projectt12-1fee4-default-rtdb.asia-southeast1.firebasedatabase.app/"
-	})
-
-ref = db.reference("/Object Detection")
 
 Conf_threshold = 0.5
 NMS_threshold = 0.4
@@ -46,18 +40,19 @@ class Detection():
                 
                 cv2.putText(frame, label, (box[0], box[1]-10),
                         cv2.FONT_HERSHEY_COMPLEX, 0.3, color, 1)
-            Thread_update(self.dict_obj)
-            print("FPS : {}".format(1/(time.time()-t1)))
-if __name__ == '__main__':
-    cam=cv2.VideoCapture("../video.mp4")
-    model=Detection()
-    while cam.isOpened():
-        _,frame=cam.read()
-        frame=cv2.resize(frame,(1280,720))
-        model.detect(frame)
-        cv2.imshow("ddd",frame)
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break
+            return self.dict_obj
+            # Thread_update(dict_id)
+            # print("FPS : {}".format(1/(time.time()-t1)))
+# if __name__ == '__main__':
+#     cam=cv2.VideoCapture("../video.mp4")
+#     model=Detection()
+#     while cam.isOpened():
+#         _,frame=cam.read()
+#         frame=cv2.resize(frame,(1280,720))
+#         model.detect(frame)
+#         cv2.imshow("ddd",frame)
+#         if cv2.waitKey(1) & 0xFF == ord("q"):
+#             break
        
         
         

@@ -10,7 +10,17 @@ import time
 class Detection_ONNX():
     def __init__(self,model_path):
         self.input_shape=(416,416)
-        self.session = onnxruntime.InferenceSession(model_path)
+        providers = [
+                    ('CUDAExecutionProvider', {
+                        'device_id': 0,
+                        'arena_extend_strategy': 'kNextPowerOfTwo',
+                        'gpu_mem_limit': 2 * 1024 * 1024 * 1024,
+                        'cudnn_conv_algo_search': 'EXHAUSTIVE',
+                        'do_copy_in_default_stream': True,
+                    }),
+                    'CPUExecutionProvider',
+                ]
+        self.session = onnxruntime.InferenceSession(model_path,providers=providers)
     def detect(self,org_img):
         img, ratio = preprocess(org_img, self.input_shape)
         ort_inputs = {self.session.get_inputs()[0].name: img[None, :, :, :]}

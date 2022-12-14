@@ -12,3 +12,6 @@ scipy
 sklearn
 firebase_admin
 tqdm
+onnxruntime-gpu
+onnxruntime
+paddleocr
