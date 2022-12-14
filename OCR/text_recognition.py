@@ -13,7 +13,8 @@ class Text_Recognizer() :
         for line in result:
             l=line[1][0]
             txt+=l
-        return txt
+        dict_text={"Text":txt}
+        return dict_text
 
         # # draw result
 

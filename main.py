@@ -23,4 +23,8 @@ class Pipeline () :
                 Thread_update(ref_obj,obj_dict)
             if A=="B" :
                 res=self.text_recog.text_recognizer(frame)
+                Thread_update(ref_text,res)
+if __name__ == "__main__": 
+    pipeline = Pipeline()
+
 
