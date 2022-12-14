@@ -10,17 +10,15 @@ NMS_threshold = 0.4
 COLORS = [(0, 255, 0), (0, 0, 255), (255, 0, 0),
           (255, 255, 0), (255, 0, 255), (0, 255, 255)]
 class_name = []
-with open('classes.txt', 'r') as f:
+with open('/home/cuong/Documents/GitHub/Human_pose/Object_detection/YOLOV4/classes.txt', 'r') as f:
     class_name = [cname.strip() for cname in f.readlines()]
 # print(class_name)
 
-def Thread_update(dict_obj:dict):
-    thread=threading.Thread(target=ref.set,args=(dict_obj,))
-    thread.start()
+
 
 class Detection():
     def __init__(self):
-        self.net = cv2.dnn.readNet('yolov4-tiny.weights', 'yolov4-tiny.cfg')
+        self.net = cv2.dnn.readNet('../Object_detection/YOLOV4/yolov4-tiny.weights', '../Object_detection/YOLOV4/yolov4-tiny.cfg')
         # self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
         # self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA_FP16)
         self.model = cv2.dnn_DetectionModel(self.net)
@@ -36,6 +34,7 @@ class Detection():
                 cv2.rectangle(frame, box, color, 1)
                 box=np.array(box,dtype=int)
                 dict_id={class_name[int(classid)]:{"box":box.tolist(),"score":float(score)}}
+                print(dict_id)
                 self.dict_obj.update(dict_id)
                 
                 cv2.putText(frame, label, (box[0], box[1]-10),

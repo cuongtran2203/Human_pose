@@ -5,7 +5,7 @@ from firebase_admin import db
 import threading
 from queue import Queue
 que=Queue()
-cred_obj = firebase_admin.credentials.Certificate('./projectt12-1fee4-firebase-adminsdk-dhgsc-57200ac9a1.json')
+cred_obj = firebase_admin.credentials.Certificate('./connect/project2022-2f02f-firebase-adminsdk-w6ag6-1963cd3b34.json')
 default_app = firebase_admin.initialize_app(cred_obj, {
 	'databaseURL':"https://projectt12-1fee4-default-rtdb.asia-southeast1.firebasedatabase.app"
 	})

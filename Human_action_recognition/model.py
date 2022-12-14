@@ -2,6 +2,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.callbacks import TensorBoard,EarlyStopping,ModelCheckpoint,ReduceLROnPlateau
 import os 
+import sys
+sys.path.append(".")
 from config import *
 log_dir = os.path.join('Logs')
 tb_callback = TensorBoard(log_dir=log_dir)

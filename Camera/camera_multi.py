@@ -1,5 +1,5 @@
 import cv2
-from base_camera import BaseCamera
+from .base_camera import BaseCamera
 import time
 import sys
 class Camera(BaseCamera):
@@ -20,11 +20,12 @@ class Camera(BaseCamera):
             frame=cv2.resize(frame,(1280,720))
             yield frame
 
-if __name__ == "__main__":
-    camera = Camera()
-    frame=camera.get_frame()
-    cv2.imshow("ssss", frame)
-    cv2.waitKey(1)
+# if __name__ == "__main__":
+#     camera = Camera()
+#     while True:
+#         frame=camera.get_frame()
+#         cv2.imshow("ssss", frame)
+#         cv2.waitKey(1)
 
 
         
