@@ -9,11 +9,17 @@ class Text_Recognizer() :
         # img=Image.fromarray(img)
         # img_path = 'i1Abv.png'
         txt=""
-        result = self.ocr.ocr(img,det=True)
+        result = self.ocr.ocr(img,det=True,rec=True)
+        # print(result)
         for line in result:
-            l=line[1][0]
-            txt+=l
+            # print(line)
+            for l in line :
+                # print(l)
+                text=l[1][0]
+                # print(text)
+                txt+=text
         dict_text={"Text":txt}
+        print(dict_text)
         return dict_text
 
         # # draw result
@@ -22,7 +28,7 @@ class Text_Recognizer() :
         #     res = result[idx]
         #     for line in res:
         #         print(line)
-# if  __name__ == "__main__" :
-#     model=Text_Recognizer()
-#     img=cv2.imread("i1Abv.png")
-#     print(model.text_recognizer(img))
+if  __name__ == "__main__" :
+    model=Text_Recognizer()
+    img=cv2.imread("i1Abv.png")
+    model.text_recognizer(img)

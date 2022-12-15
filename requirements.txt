@@ -5,13 +5,13 @@ tensorflow==2.4.1
 tensorflow-gpu==2.4.1
 mediapipe
 scipy
-numpy 
+numpy==1.19.5
 pandas
 matplotlib
 scipy
 sklearn
 firebase_admin
 tqdm
-onnxruntime-gpu
-onnxruntime
+onnxruntime-gpu==1.8.0
+onnxruntime==1.8.0
 paddleocr

@@ -207,9 +207,9 @@ def demo_postprocess(outputs, img_size, p6=False):
 
     return outputs
 def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
-
     for i in range(len(boxes)):
         box = boxes[i]
+        text=''
         cls_id = int(cls_ids[i])
         score = scores[i]
         if score < conf:
@@ -220,7 +220,7 @@ def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
         y1 = int(box[3])
 
         color = (_COLORS[cls_id] * 255).astype(np.uint8).tolist()
-        text = '{}:{:.1f}%'.format(class_names[cls_id], score * 100)
+        text = '{}'.format(class_names[cls_id])
         txt_color = (0, 0, 0) if np.mean(_COLORS[cls_id]) > 0.5 else (255, 255, 255)
         font = cv2.FONT_HERSHEY_SIMPLEX
 
@@ -237,4 +237,4 @@ def vis(img, boxes, scores, cls_ids, conf=0.5, class_names=None):
         )
         cv2.putText(img, text, (x0, y0 + txt_size[1]), font, 0.4, txt_color, thickness=1)
 
-    return img
+    return img,text

@@ -10,7 +10,11 @@ import sys
 sys.path.append("..")
 from Object_detection.YOLOV4.yolov4 import *
 from OCR.text_recognition import *
+from Object_detection.YOLOX.Infer_model_onnx_YOLOX import *
+from connect.connect_cloud import *
 import sys
+from queue import Queue
+que=Queue()
 sequence = []
 sentence = []
 predictions = []
@@ -25,23 +29,37 @@ def prob_viz(res, actions, input_frame, colors):
     return output_frame
 model_LSTM=Action_Recognizer()
 model_LSTM.model.load_weights("./model.h5")
-model_detection=Detection()
+# model_detection=Detection()
+model_detection=Detection_ONNX("../Object_detection/YOLOX/yolox_nano.onnx")
 model_text=Text_Recognizer()
 cap = cv2.VideoCapture(0)
 # Set mediapipe model 
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
-    A="1"
+    
     while cap.isOpened():
         # Read feed
         ret, frame = cap.read()
+        frame=cv2.resize(frame,(1280,720))
         # Make detections
         image, results = mediapipe_detection(frame, holistic)
         # Draw landmarks
+        A=""
+        Thread_read_data(ref_request,que)
+        if que.qsize()>0:
+            data=que.get()
+        else :
+            data=""
+        # print(data) 
         draw_styled_landmarks(image, results)
-        if A=="B":
-            model_detection.detect(frame)
-        if A=="C":
+        if data=="A":
+            text=model_detection.detect(frame)
+            object_dict={text}
+            Thread_update(ref_obj,object_dict)
+            print(object_dict)
+        elif data=="B":
             text=model_text.text_recognizer(frame)
+            dict_text={text}
+            Thread_update(ref_text,dict_text)
             print(text)
         # 2. Prediction logic
         keypoints = extract_keypoints(results)
@@ -49,9 +67,9 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         sequence = sequence[-30:]   
         if len(sequence) == 30:
             res = model_LSTM.model.predict(np.expand_dims(sequence, axis=0))[0]
-            print(actions[np.argmax(res)])
+            human_dict={actions[np.argmax(res)]}
+            Thread_update(ref_human,human_dict)
             predictions.append(np.argmax(res))
-            
         #3. Viz logic
             if np.unique(predictions[-10:])[0]==np.argmax(res): 
                 if res[np.argmax(res)] > threshold: 

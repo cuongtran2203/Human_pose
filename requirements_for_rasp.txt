@@ -1,0 +1,4 @@
+speechrecognition
+pyaudio
+firebase_admin
+selenium

@@ -3,9 +3,11 @@ import os
 import cv2
 import numpy as np
 import onnxruntime
-from ultils.preprocess import preproc as preprocess
-from ultils.ultils import demo_postprocess,multiclass_nms,vis
-from ultils.coco_classes import *
+# import sys
+# sys.path.insert("/ultils")
+from .ultils.preprocess import preproc as preprocess
+from .ultils.ultils import demo_postprocess,multiclass_nms,vis
+from .ultils.coco_classes import *
 import time
 class Detection_ONNX():
     def __init__(self,model_path):
@@ -37,11 +39,11 @@ class Detection_ONNX():
         dets = multiclass_nms(boxes_xyxy, scores, nms_thr=0.45, score_thr=0.1)
         if dets is not None:
             final_boxes, final_scores, final_cls_inds = dets[:, :4], dets[:, 4], dets[:, 5]
-            org_img = vis(org_img, final_boxes, final_scores, final_cls_inds,
+            org_img,text = vis(org_img, final_boxes, final_scores, final_cls_inds,
                          conf=0.6, class_names=COCO_CLASSES)
         else :
             return None
-        return org_img
+        return text
 
 
 if __name__ == '__main__':

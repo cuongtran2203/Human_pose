@@ -48,7 +48,7 @@ class Classification() :
                 if len(sequence) == 30:
                     # print("waitKey")
                     res = self.model_LSTM.model.predict(np.expand_dims(sequence, axis=0))[0]
-                    print(actions[np.argmax(res)])
+                    # print(actions[np.argmax(res)])
                     predictions.append(np.argmax(res))
                     
                     
