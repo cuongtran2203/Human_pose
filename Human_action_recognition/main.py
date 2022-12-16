@@ -79,6 +79,10 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
                             sentence.append(actions[np.argmax(res)])
                     else:
                         sentence.append(actions[np.argmax(res)])
+        else :
+            human_dict={""}
+            Thread_update(ref_human,human_dict)
+
 
             if len(sentence) > 5: 
                 sentence = sentence[-5:]
